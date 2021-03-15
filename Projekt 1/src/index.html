@@ -22,22 +22,22 @@
 
         <div class="summary">
 
-            <div class="summary__group summary__sum">
+            <div id="sum">
                 <label>Sum</label>
                 <input type="text" readonly value="0" />
             </div>
 
-            <div class="summary__group summary_avg">
+            <div id="avg">
                 <label>Avg</label>
                 <input type="text" readonly value="0" />
             </div>
 
-            <div class="summary__group summary_min">
+            <div id="min">
                 <label>Min</label>
                 <input type="text" readonly value="0" />
             </div>
 
-            <div class="summary__group summary_max">
+            <div id="max">
                 <label>Max</label>
                 <input type="text" readonly value="0" />
             </div>
@@ -49,7 +49,7 @@
 
     <template id="inputGroupTemplate">
         <div>
-            <input />
+            <input type="number" />
             <button class="btn--danger">&times;</button>
         </div>
     </template>
@@ -59,8 +59,8 @@
             <div class="alert__close">
                 <span class="alert__close__icon">&times;</span>
             </div>
+            <small class="alert__datetime"></small>
             <p class="alert__message">
-                Invalid value was entered. Please enter only number value.
             </p>
         </div>
     </template>
