@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt 1</title>
+</head>
+
+<body>
+
+    <div>
+        <div class="generator">
+            <input type="text" value="0">
+            <button >Generate inputs</button>
+        </div>
+
+        <div class="inputs">
+
+        </div>
+
+        <div class="summary">
+
+            <div class="summary__group summary__sum">
+                <label>Sum</label>
+                <input type="text" readonly value="0" />
+            </div>
+
+            <div class="summary__group summary_avg">
+                <label>Avg</label>
+                <input type="text" readonly value="0" />
+            </div>
+
+            <div class="summary__group summary_min">
+                <label>Min</label>
+                <input type="text" readonly value="0" />
+            </div>
+
+            <div class="summary__group summary_max">
+                <label>Max</label>
+                <input type="text" readonly value="0" />
+            </div>
+
+        </div>
+        
+
+    </div>
+
+    <template id="inputGroupTemplate">
+        <div>
+            <input />
+            <button class="btn--danger">&times;</button>
+        </div>
+    </template>
+
+    <template id="alertTemplate">
+        <div class="alert alert--danger">
+            <div class="alert__close">
+                <span class="alert__close__icon">&times;</span>
+            </div>
+            <p class="alert__message">
+                Invalid value was entered. Please enter only number value.
+            </p>
+        </div>
+    </template>
+
+</body>
+
+</html>
