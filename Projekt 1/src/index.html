@@ -13,32 +13,33 @@
 
     <div>
         <div class="generator">
-            <input class="input" type="text" value="0">
-            <button class="btn btn--primary" >Generate inputs</button>
+            <label>Enter some value:</label>
+            <input class="input" type="text" value="">
         </div>
 
-        <div class="inputs"> </div>
+        <div class="inputs"> 
+        </div>
 
         <div class="summary">
 
             <div id="sum">
                 <label>Sum</label>
-                <input class="input input--readonly" readonly type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="" />
             </div>
 
             <div id="avg">
                 <label>Avg</label>
-                <input class="input input--readonly" readonly type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="" />
             </div>
 
             <div id="min">
                 <label>Min</label>
-                <input class="input input--readonly" readonly type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="" />
             </div>
 
             <div id="max">
                 <label>Max</label>
-                <input class="input input--readonly" readonly type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="" />
             </div>
 
         </div>
@@ -60,6 +61,12 @@
             <small class="alert__datetime"></small>
             <p class="alert__message">
             </p>
+        </div>
+    </template>
+
+    <template id="loaderTemplate">
+        <div class="loader">
+            <p class="loader__message">Please wait...</p>
         </div>
     </template>
 

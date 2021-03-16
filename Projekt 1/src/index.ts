@@ -48,12 +48,19 @@ class Summary {
     this.min.value = this.calculateMin().toString();
     this.max.value = this.calculateMax().toString();
   };
+
+  public reset = (): void => {
+    this.sum.value = "";
+    this.avg.value = "";
+    this.min.value = "";
+    this.max.value = "";
+  };
 }
 
 class Generator {
   private summary: Summary = new Summary();
   constructor() {
-    this.button.addEventListener("click", this.generate);
+    this.input.addEventListener("change", this.generate);
   }
 
   get container(): HTMLElement {
@@ -68,19 +75,36 @@ class Generator {
     return document.querySelector(".inputs") as HTMLInputElement;
   }
 
-  get button(): HTMLButtonElement {
-    return this.container.querySelector("button") as HTMLButtonElement;
-  }
+  private clearInputsContainer = (): void => {
+    (document.querySelector(".inputs") as HTMLElement).innerHTML = "";
+  };
+
+  private createInputsPromise = (value: number): Promise<void> => {
+    this.clearInputsContainer();
+    this.inputs.appendChild(FactoryElement.createLoader());
+    this.input.setAttribute("disabled", "disabled");
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.clearInputsContainer();
+        this.summary.reset();
+        this.input.value = "";
+        for (let index = 0; index < value; index++) {
+          this.inputs.appendChild(FactoryElement.createInputGroup(this.summary.update));
+        }
+        resolve();
+      }, 2000);
+    });
+  };
 
   private generate = (): void => {
     let value: number = +this.input.value;
-
     if (isNaN(value)) {
       this.inputs.prepend(FactoryElement.createAlertElement());
     } else {
-      for (let index = 0; index < value; index++) {
-        this.inputs.appendChild(FactoryElement.createInputGroup(this.summary.update));
-      }
+      this.createInputsPromise(value).then(() => {
+        this.input.removeAttribute("disabled");
+      });
     }
   };
 }

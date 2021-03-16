@@ -96,6 +96,13 @@ body {
     box-shadow: none;
 }
 
+.generator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .summary {
     display: flex;
     flex-direction: row;
@@ -172,4 +179,13 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
+}
+
+.loader {
+    width: 100%;
+    text-align: center;
+}
+.loader .loader__message {
+    color: var(--primary);
+    font-weight: 600;
 }

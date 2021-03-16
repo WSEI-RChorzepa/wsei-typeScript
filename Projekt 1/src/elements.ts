@@ -64,3 +64,21 @@ export class Alert extends BaseElement {
     return this.template;
   };
 }
+
+export class Loader extends BaseElement {
+  constructor() {
+    super("loaderTemplate");
+  }
+
+  public get message(): HTMLElement {
+    return this.template.querySelector(".loader__message") as HTMLElement;
+  }
+
+  public set setMessage(message: string) {
+    this.message.innerHTML = message;
+  }
+
+  create(): HTMLElement {
+    return this.template;
+  }
+}

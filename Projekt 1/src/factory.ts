@@ -1,4 +1,4 @@
-import { Alert, InputGroup } from "./elements";
+import { Alert, InputGroup, Loader } from "./elements";
 
 export class FactoryElement {
   public static createAlertElement(): HTMLElement {
@@ -41,5 +41,12 @@ export class FactoryElement {
     inputGroup.remove.addEventListener("click", removehandler);
 
     return inputGroup.create();
+  }
+
+  public static createLoader(): HTMLElement {
+    let loader = new Loader();
+    loader.setMessage = "Generating input controls. Please wait...";
+
+    return loader.create();
   }
 }
