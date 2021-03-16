@@ -6,51 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projekt 1</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
 
     <div>
         <div class="generator">
-            <input type="text" value="0">
-            <button >Generate inputs</button>
+            <input class="input" type="text" value="0">
+            <button class="btn btn--primary" >Generate inputs</button>
         </div>
 
-        <div class="inputs">
-
-        </div>
+        <div class="inputs"> </div>
 
         <div class="summary">
 
             <div id="sum">
                 <label>Sum</label>
-                <input type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="0" />
             </div>
 
             <div id="avg">
                 <label>Avg</label>
-                <input type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="0" />
             </div>
 
             <div id="min">
                 <label>Min</label>
-                <input type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="0" />
             </div>
 
             <div id="max">
                 <label>Max</label>
-                <input type="text" readonly value="0" />
+                <input class="input input--readonly" readonly type="text" readonly value="0" />
             </div>
 
         </div>
-        
 
     </div>
 
     <template id="inputGroupTemplate">
-        <div>
-            <input type="number" />
-            <button class="btn--danger">&times;</button>
+        <div class="input__group">
+            <input class="input" type="number" />
+            <button class="btn btn--danger">&times;</button>
         </div>
     </template>
 
