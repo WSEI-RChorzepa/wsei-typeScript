@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap");
+
+:root {
+  --primary-font-color: rgb(52, 73, 94);
+  --sceondary-font-color: rgb(127, 140, 141);
+
+  --background-color: rgba(236, 240, 241, 0.5);
+  --border-color: rgba(189, 195, 199, 0.6);
+  --readonly-background: rgba(236, 240, 241, 1);
+
+  --primary: rgb(52, 152, 219);
+  --primary-dark: rgb(41, 128, 185);
+  --primary-light: rgba(52, 152, 219, 0.5);
+  --primary-extra-light: rgba(52, 152, 219, 0.3);
+
+  --danger: rgb(231, 76, 60);
+  --danger-dark: rgb(192, 57, 43);
+  --danger-light: rgba(231, 76, 60, 0.8);
+  --danger-extra-light: rgba(231, 76, 60, 0.7);
+}
+
+* {
+  font-family: "Montserrat";
+  font-size: 13px;
+  color: var(--primary-font-color);
+}
+
+body {
+  background-color: var(--background-color);
+  padding: 2rem;
+}
