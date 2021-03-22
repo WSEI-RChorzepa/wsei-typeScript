@@ -30,10 +30,116 @@ body {
   padding: 2rem;
 }
 
+select {
+  border: 1px solid var(--border-color);
+  border-radius: 1px;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  transition: all 300ms ease-in-out;
+}
+
+select {
+  box-shadow: 2px 2px 10px var(--primary-extra-light);
+}
+
+select:focus,
+select:active {
+  outline: none;
+  border: 1px solid transparent;
+}
+
+select:focus,
+select:active {
+  border: 1px solid var(--primary-light);
+  box-shadow: 2px 2px 10px var(--primary-extra-light);
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-item-center {
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  position: relative;
+}
+
+.col-12 {
+  width: calc(12 / 12 * 100%);
+}
+.col-11 {
+  width: calc(11 / 12 * 100%);
+}
+.col-10 {
+  width: calc(10 / 12 * 100%);
+}
+.col-9 {
+  width: calc(9 / 12 * 100%);
+}
+.col-8 {
+  width: calc(8 / 12 * 100%);
+}
+.col-7 {
+  width: calc(7 / 12 * 100%);
+}
+.col-6 {
+  width: calc(6 / 12 * 100%);
+}
+.col-5 {
+  width: calc(5 / 12 * 100%);
+}
+.col-4 {
+  width: calc(4 / 12 * 100%);
+}
+.col-3 {
+  width: calc(3 / 12 * 100%);
+}
+.col-2 {
+  width: calc(2 / 12 * 100%);
+}
+.col-1 {
+  width: calc(1 / 12 * 100%);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mb-1 {
+  margin-bottom: 0.5em;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .samples__wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 50vw;
+  margin: 0 auto;
 }
