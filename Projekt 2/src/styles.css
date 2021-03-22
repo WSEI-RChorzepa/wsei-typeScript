@@ -29,3 +29,11 @@ body {
   background-color: var(--background-color);
   padding: 2rem;
 }
+
+.samples__wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
