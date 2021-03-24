@@ -1,42 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drumkit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css"
+        integrity="sha512-jQqzj2vHVxA/yCojT8pVZjKGOe9UmoYvnOuM/2sQ110vxiajBU+4WkyRs1ODMmd4AfntwUEV4J+VfM6DkfjLRg=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
-    
+
     <div class="wrapper">
-       <div class="row ">
-           <div class="col-3"></div>
-           <div class="col-3 mb-1">
+        <div class="row ">
+            <div class="col-3"></div>
+            <div class="col-3 mb-1">
                 <div class="flex flex-column">
                     <label>Chose instrument: </label>
                     <select class="w-100" id="instrument">
+                        <option disabled selected value="">Select instrument</option>
                         <option value="drums">Drums</option>
                         <option value="violin">Violin</option>
                     </select>
                 </div>
-           </div>
-       </div>
+            </div>
+        </div>
 
-       <div class="row">
-           <div class="col-12">
+        <div class="row">
+            <div class="col-12">
                 <div class="samples__wrapper"></div>
-           </div>
-       </div>
+            </div>
+        </div>
 
-       <div class="row" class="tracks__wrapper">
-
-       </div>
+        <div class="tracks__wrapper">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <track-component id="channel-1"></track-component>
+                    <hr />
+                    <track-component id="channel-2"></track-component>
+                    <hr />
+                    <track-component id="channel-3"></track-component>
+                    <hr />
+                    <track-component id="channel-4"></track-component>
+                </div>
+            </div>
+        </div>
 
     </div>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.5.0/custom-elements-es5-adapter.js" integrity="sha512-ghu3B55L7mKaf35O7RoyJTyarNPaxcpas/jKNvZAEBMRxr7BR4Oi52Aqnv/H8kyiXZtTVH9IZ490f9z7F4f4kA==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.5.0/webcomponents-loader.js" integrity="sha512-y+Ky+I5f/DGvh4siHnJs2gQx7szrGBma4SKbp3LbOjnvrO+WNoZ9qYRDupaTrNT5E1Eenh2Tp8pq9LzBM2gb5Q==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.5.0/custom-elements-es5-adapter.js"
+        integrity="sha512-ghu3B55L7mKaf35O7RoyJTyarNPaxcpas/jKNvZAEBMRxr7BR4Oi52Aqnv/H8kyiXZtTVH9IZ490f9z7F4f4kA=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.5.0/webcomponents-loader.js"
+        integrity="sha512-y+Ky+I5f/DGvh4siHnJs2gQx7szrGBma4SKbp3LbOjnvrO+WNoZ9qYRDupaTrNT5E1Eenh2Tp8pq9LzBM2gb5Q=="
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
