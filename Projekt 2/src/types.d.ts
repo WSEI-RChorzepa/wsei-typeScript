@@ -1,5 +1,5 @@
 export interface IMediator {
-  notify(ev: Event): void;
+  notify(track: ITrack): void;
 }
 
 export interface ITrack {

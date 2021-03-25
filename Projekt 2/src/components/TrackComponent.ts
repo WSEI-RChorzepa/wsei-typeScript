@@ -17,43 +17,12 @@ class TrackComponent extends HTMLElement {
                 width: 100%;
                 margin-bottom: 10px;
             }
-            button {
-              border: 1px solid #FFF;
-              outline: none;
-              padding: 5px 10px;
-              border-radius: 2px;
-              color: #FFF;
-              transition: background-color 200ms ease-in-out;
-            }
-            button[disabled] {
-              background-color: #bdc3c7;
-              border: 1px solid #bdc3c7;
-            }
-            button:focus{
-              border: 1px solid transparent;
-              focus: none;
-            }
-            .record {
-              background-color: #e74c3c;
-              border: 1px solid #e74c3c;
-              width: 80px;
-            }
-            .stop {
-              background-color: #3498db;
-              border: 1px solid #3498db;
-              width: 80px;
-            }
-            .play {
-              background-color: #27ae60;
-              border: 1px solid #27ae60;
-            }
             .flex {
               display: flex;
               flex-direction: row;
               justify-content: flex-start;
               align-items: center;
             }
-
             .wrapper {
               display: grid;
               grid-template-columns: 150px calc(100% - 250px) 100px;
@@ -75,13 +44,19 @@ class TrackComponent extends HTMLElement {
     return styles;
   }
 
+  public reset = (): void => {
+    this.track = [];
+    this.playButton.setAttribute("disabled", "disabled");
+    this.time.innerText = "0.00 s";
+  };
+
   private get template(): HTMLElement {
     let element = document.createElement("div");
     element.classList.add("wrapper");
     element.innerHTML = /*html*/ `
         <div class="buttons-container">
-          <button data-record class='record'>Record</button>
-          <button data-play class='play'>Play</button>
+          <button is='console-button' data-record class='record'>Record</button>
+          <button is='console-button'  data-play class='play' disabled>Play</button>
         </div>
         <div class='progress-container'>
             <progress-bar></progress-bar>    
@@ -94,13 +69,7 @@ class TrackComponent extends HTMLElement {
   }
 
   get recording(): boolean {
-    let value: boolean = false;
-
-    if (this.getAttribute("recording") === "true") {
-      value = true;
-    }
-
-    return value;
+    return this.getAttribute("recording") === "true" ? true : false;
   }
 
   set recording(value: boolean) {
@@ -194,6 +163,12 @@ class TrackComponent extends HTMLElement {
       btn.classList.remove("record");
       this.playButton.hasAttribute("disabled") ? this.playButton.removeAttribute("disabled") : null;
       this.time.innerText = `${(this.totalTime / 1000).toFixed(2)} s`;
+
+      if (this.track.length) {
+        this.playButton.removeAttribute("disabled");
+      } else {
+        this.playButton.setAttribute("disabled", "disabled");
+      }
     } else {
       this.track = [];
       btn.innerHTML = "Stop";

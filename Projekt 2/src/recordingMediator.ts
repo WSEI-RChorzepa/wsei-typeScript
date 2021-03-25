@@ -1,7 +1,7 @@
 import { IMediator, ITrack } from "./types";
 import TrackComponent from "./components/TrackComponent";
 
-export class Mediator implements IMediator {
+export class RecordingMediator implements IMediator {
   private components: TrackComponent[] = [];
 
   constructor() {
@@ -18,10 +18,10 @@ export class Mediator implements IMediator {
     this.components = this.trackingComponents;
   };
 
-  notify(ev: KeyboardEvent): void {
+  notify(track: ITrack): void {
     for (let component of this.components) {
       if (component.recording) {
-        component.track.push({ key: ev.key, time: ev.timeStamp });
+        component.track.push(track);
       }
     }
   }

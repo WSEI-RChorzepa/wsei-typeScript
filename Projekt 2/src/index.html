@@ -17,42 +17,58 @@
 
 <body>
 
-    <div class="wrapper">
-        <div class="row ">
-            <div class="col-3"></div>
-            <div class="col-3 mb-1">
-                <div class="flex flex-column">
-                    <label>Chose instrument: </label>
-                    <select class="w-100" id="instrument">
-                        <option disabled selected value="">Select instrument</option>
-                        <option value="drums">Drums</option>
-                        <option value="violin">Violin</option>
-                    </select>
+    <div class="grid">
+        <div class="menu">
+           <div class="row">
+                <div class="col-12">
+                    <div class="flex-column">
+                        <label>Chose instrument: </label>
+                        <select class="w-100" id="instrument">
+                            <option disabled selected value="">Select instrument</option>
+                            <option value="drums">Drums</option>
+                            <option value="violin">Violin</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </div>
+           </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="samples__wrapper"></div>
-            </div>
-        </div>
+           <div class="row mt-2">
+               <div class="col-12 flex flex-column">
+                   <span>Imię: <strong> Rafał</strong></span>
+                   <span>Nazwisko:  <strong>Chorzępa</strong></span>
+                   <span>Grupa: <strong>lab5/FEDN </strong></span>
+               </div>
+           </div>
 
-        <div class="tracks__wrapper">
-            <div class="row justify-content-center">
-                <div class="col-6">
-                    <track-component id="channel-1"></track-component>
-                    <hr />
-                    <track-component id="channel-2"></track-component>
-                    <hr />
-                    <track-component id="channel-3"></track-component>
-                    <hr />
-                    <track-component id="channel-4"></track-component>
+        </div>
+        <div class="app">
+            <div class="wrapper">
+  
+                <div class="row">
+                    <div class="col-12">
+                        <div class="samples__wrapper"></div>
+                    </div>
                 </div>
+        
+                <div class="tracks__wrapper hidden" >
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <track-component id="channel-1"></track-component>
+                            <hr />
+                            <track-component id="channel-2"></track-component>
+                            <hr />
+                            <track-component id="channel-3"></track-component>
+                            <hr />
+                            <track-component id="channel-4"></track-component>
+                        </div>
+                    </div>
+                </div>
+        
             </div>
         </div>
-
     </div>
+
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.5.0/custom-elements-es5-adapter.js"

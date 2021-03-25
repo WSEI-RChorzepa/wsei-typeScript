@@ -40,20 +40,17 @@ class AudioComponent extends HTMLElement {
             cursor: pointer;
             background-color: #16a085;
         }
-        div:active {
-            transform: scale(1.1);
-        }  
         `;
     return styles;
   }
 
   private get template(): HTMLElement {
     let element = document.createElement("div");
-    element.innerHTML = `
+    element.innerHTML = /*html*/ `
             <div class="container">
                 <p>Sound <strong>${this.name.toUpperCase()}</strong></p>
                 <span>Key: ${this.key.toUpperCase()}</span>
-                <audio data-sound=['${this.name}']></audio>
+                <audio data-sound='${this.name}'></audio>
             </div> `;
 
     return element;
@@ -61,6 +58,10 @@ class AudioComponent extends HTMLElement {
 
   private get body(): HTMLElement {
     return document.querySelector("body") as HTMLElement;
+  }
+
+  private get container(): HTMLElement {
+    return this.root.querySelector(".container") as HTMLAudioElement;
   }
 
   private get audio(): HTMLAudioElement {
@@ -90,12 +91,18 @@ class AudioComponent extends HTMLElement {
     );
   };
 
-  private handlePlay = (ev: KeyboardEvent): void => {
-    if ((ev as KeyboardEvent).key === this.key) {
+  private handlePlay = (ev: Event): void => {
+    const registerSound = (timeStamp: number): void => {
       this.audio.currentTime = 0;
       this.audio.play();
       this.handleAnimate();
-      this.mediator.notify(ev);
+      this.mediator.notify({ key: this.key, time: timeStamp });
+    };
+
+    if ((ev as KeyboardEvent).key === this.key) {
+      registerSound(ev.timeStamp);
+    } else if (ev instanceof MouseEvent) {
+      registerSound(ev.timeStamp);
     }
   };
 
@@ -103,6 +110,7 @@ class AudioComponent extends HTMLElement {
     this.render();
     this.audio.src = this.sound;
     this.body.addEventListener("keypress", this.handlePlay);
+    this.container.addEventListener("click", this.handlePlay);
   }
 
   disconnectedCallback() {

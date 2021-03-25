@@ -125,6 +125,10 @@ label {
   width: 100%;
 }
 
+.mt-2 {
+  margin-top: 2em;
+}
+
 .mb-1 {
   margin-bottom: 0.5em;
 }
@@ -152,4 +156,21 @@ hr {
   border: none;
   background-color: rgba(189, 195, 199, 0.3);
   height: 1px;
+}
+
+.hidden {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.menu {
+  grid-column: 1;
+}
+
+.app {
+  grid-column: 2;
 }

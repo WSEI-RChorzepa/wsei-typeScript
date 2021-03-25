@@ -1,16 +1,12 @@
-import { Mediator } from "./mediator";
+import { RecordingMediator } from "./recordingMediator";
 import { IMediator } from "./types";
 import { Factory, ISample, Sample } from "./sampleLibray";
-import { AudioComponent, TrackComponent, ProgressBar } from "./components/index";
+import { AudioComponent, TrackComponent, ConsoleButton, ProgressBar } from "./components/index";
 
 class App {
   private mediator: IMediator;
   private samples: Map<string, ISample> = new Map();
   private select: HTMLSelectElement;
-
-  get samplesContainer(): HTMLElement {
-    return document.querySelector(".samples__wrapper") as HTMLElement;
-  }
 
   constructor(mediator: IMediator) {
     this.mediator = mediator;
@@ -18,13 +14,38 @@ class App {
     this.attachEvents();
   }
 
+  get samplesContainer(): HTMLElement {
+    return document.querySelector(".samples__wrapper") as HTMLElement;
+  }
+
+  get tracksContainer(): HTMLElement {
+    return document.querySelector(".tracks__wrapper") as HTMLElement;
+  }
+
+  private resetTracks = (): void => {
+    let tracks = this.tracksContainer.querySelectorAll("track-component") as NodeListOf<TrackComponent>;
+
+    for (let track of tracks) {
+      track.reset();
+    }
+  };
+
+  private showConsole = (): void => {
+    this.samplesContainer.innerHTML = "";
+    this.tracksContainer.classList.remove("hidden");
+    this.render();
+    this.resetTracks();
+  };
+
+  private renderSamples = (value: string): void => {
+    this.samples = Factory.getSamples(value as Sample) as Map<string, ISample>;
+  };
+
   attachEvents = (): void => {
     this.select.addEventListener("change", ({ target }) => {
-      let value: string = (target as HTMLInputElement).value;
-      this.samples = Factory.getSamples(value as Sample) as Map<string, ISample>;
+      this.renderSamples((target as HTMLInputElement).value);
       if (this.samples !== undefined) {
-        this.samplesContainer.innerHTML = "";
-        this.render();
+        this.showConsole();
       }
     });
   };
@@ -40,6 +61,9 @@ class App {
 window.customElements.define("audio-component", AudioComponent);
 window.customElements.define("track-component", TrackComponent);
 window.customElements.define("progress-bar", ProgressBar);
+window.customElements.define("console-button", ConsoleButton, {
+  extends: "button",
+});
 
-const mediator = new Mediator();
+const mediator = new RecordingMediator();
 new App(mediator);
