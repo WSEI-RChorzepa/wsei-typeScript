@@ -12,6 +12,10 @@ abstract class HTMLComponentBase extends HTMLElement {
     this.root.appendChild(this.styles);
     this.root.appendChild(this.template);
   };
+
+  connectedCallback() {
+    this.render();
+  }
 }
 
 export default HTMLComponentBase;

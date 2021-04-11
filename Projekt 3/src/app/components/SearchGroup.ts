@@ -1,6 +1,10 @@
 import HTMLComponentBase from "./HTMLComponentBase";
 
 class SearchGroup extends HTMLComponentBase {
+  constructor() {
+    super();
+  }
+
   protected get styles(): HTMLStyleElement {
     const styles = document.createElement("style");
     return styles;
