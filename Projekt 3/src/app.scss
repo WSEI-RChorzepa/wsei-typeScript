@@ -8,3 +8,16 @@
 body {
   background-color: #ecf0f1;
 }
+
+:root {
+  --primary: #3498db;
+  --font-color: #34495e;
+}
+
+#weather-cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,20 +1,22 @@
 abstract class HTMLComponentBase extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   protected root: ShadowRoot = this.attachShadow({ mode: "closed" });
 
-  protected abstract get styles(): HTMLStyleElement;
-  protected abstract get template(): HTMLElement;
+  constructor(template: string) {
+    super();
+    this.loadTemplate(template);
+  }
 
-  protected render = (): void => {
-    this.root.appendChild(this.styles);
-    this.root.appendChild(this.template);
-  };
+  loadTemplate(source: string): void {
+    const template = document.createElement("template");
+    const regex = new RegExp(/(?<=<template>)(.|\s)*(?=<\/template>)/);
+    const html = source.match(regex) as string[];
 
-  connectedCallback() {
-    this.render();
+    if (html == null) {
+      throw new Error(`Error: Template tag was not found in template file. \n${template}`);
+    }
+
+    template.innerHTML = html[0];
+    this.root.appendChild(template.content.cloneNode(true));
   }
 }
 

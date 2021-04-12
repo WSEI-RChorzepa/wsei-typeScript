@@ -1,0 +1,35 @@
+<template>
+    <style>
+        :host {
+            display: block;
+        }
+
+        .card {
+            border: 2px solid #FFF;
+            border-radius: 2px;
+            padding: 2rem;
+            margin: .5rem;
+        }
+        strong{
+            font-weight: 600;
+        }
+    </style>
+    <div class="card">
+        <h4 data-city></h4>
+        <img data-icon  alt="weather icon" />
+        <div>
+            <div>
+                Min: <strong data-min></strong> <span>&#8451;</span>
+            </div>
+            <div>
+                Max: <strong data-max></strong> <span>&#8451;</span>
+            </div>
+            <div>
+                Preasure: <strong data-pressure></strong> hPA
+            </div>
+            <div>
+                Humidity: <strong data-humidity></strong> %
+            </div>
+        </div>
+    </div>
+</template>

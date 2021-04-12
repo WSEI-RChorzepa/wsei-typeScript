@@ -1,8 +1,14 @@
 import { IRootWeather } from "./types";
 
 export interface IWeatherService {
-  getWeatherByCity(city: string): Promise<IRootWeather>;
+  getWeatherByCity(city: string): Promise<Response<IRootWeather>>;
 }
+
+type Response<T> = {
+  status: number;
+  statusText: string;
+  body: T | null;
+};
 
 export class OpenWeatherService implements IWeatherService {
   baseUrl = "http://api.openweathermap.org/data/2.5/weather";
@@ -12,18 +18,23 @@ export class OpenWeatherService implements IWeatherService {
     this.apiKey = apiKey;
   }
 
-  async getWeatherByCity(city: string): Promise<IRootWeather> {
-    const query = `?q=${city}&appid=${this.apiKey}`;
-    const response = await fetch(`${this.baseUrl}${query}`);
+  async getWeatherByCity(city: string): Promise<Response<IRootWeather>> {
+    const query = `?q=${city}&appid=${this.apiKey}&units=metric`;
+    const res = await fetch(`${this.baseUrl}${query}`);
+    const { status, statusText } = res;
 
-    if (response.status !== 200) {
-      const { status, statusText } = response;
-      throw new Error(`Error: Fetching weather data. Code: ${status} ${statusText}`);
+    let response: Response<IRootWeather> = {
+      status,
+      statusText,
+      body: null,
+    };
+
+    if (status == 200) {
+      const data = (await res.json()) as IRootWeather;
+      response.body = data;
     }
 
-    const data = (await response.json()) as IRootWeather;
-
-    return data;
+    return response;
   }
 }
 
