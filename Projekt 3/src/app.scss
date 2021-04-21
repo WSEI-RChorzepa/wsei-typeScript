@@ -7,11 +7,20 @@
 
 body {
   background-color: #ecf0f1;
+  height: 100vh;
 }
 
 :root {
   --primary: #3498db;
+  --danger: #e74c3c;
+  --info: #16a085;
+  --silver: #bdc3c7;
   --font-color: #34495e;
+
+  --alert-success: #1abc9c;
+  --alert-warning: #e67e22;
+  --alert-danger: #e74c3c;
+  --alert-info: #3498db;
 }
 
 #weather-cards {

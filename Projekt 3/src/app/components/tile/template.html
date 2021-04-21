@@ -1,0 +1,148 @@
+<template>
+    <style>
+        :host {
+            display: inline-block;
+            border: 1px solid rgba(0, 0, 0, .1);
+            padding: 1rem;
+            background-color: #FFF;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                "header header"
+                "temp icon"
+                "data data";
+        }
+
+        .header {
+            grid-area: header;
+            margin-bottom: 20px;
+        }
+
+        .data {
+            grid-area: data;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .data>div:nth-child(1) {
+            grid-column: 1;
+            
+        }
+        .data>div:nth-child(2) {
+            grid-column: 2;
+        }
+        .data>div:nth-child(3) {
+            grid-column: 3;       
+        }
+        .row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .current-temp {
+            grid-area: temp;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            margin-right: 2rem;
+        }
+
+        .current-icon {
+            grid-area: icon;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 2rem;
+        }
+
+        h4 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .update-info {
+            font-size: .9rem;
+            letter-spacing: .4px;
+            font-weight: 400;
+        }
+
+        .wind-deg {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 .5rem;
+        }
+
+        [data-bind$="description"] {
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+
+        [data-bind$="temp.current"] {
+            font-size: 2.5rem;
+        }
+
+        [data-bind$="temp.current"]::after {
+            content: "\2103";
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    </style>
+    <div class="grid">
+
+        <div class="header">
+            <h4 data-bind="text: place"></h4>
+            <span class="update-info">
+                Updated on: <span data-bind="text: updatedAt"></span>
+            </span>
+        </div>
+
+        <div class="current-temp">
+            <span data-bind="text: temp.current"></span>
+            <span data-bind="text: description"></span>
+        </div>
+
+        <div class="current-icon">
+            <img data-bind="src: icon" />
+        </div>
+
+        <div class="data">
+           <div>
+                <div class="row">
+                    Min temp<div><strong data-bind="text: temp.min"></strong> &deg;C</div>
+                </div>
+                <div class="row">
+                    Max temp<div><strong data-bind="text: temp.max""></strong> &deg;C</div>
+                </div>
+           </div>
+           <div>
+                <div class=" row">
+                    Preasure<div><strong data-bind="text: pressure"></strong> hPA</div>
+                </div>
+                <div class="row">
+                    Humidity<div><strong data-bind="text: humidity"></strong> %</div>
+                </div>
+           </div>
+          <div>
+                <div class="row">
+                    Wind <div><strong data-bind="text: wind.speed"></strong> mph</div>
+                </div>
+                <div class="row">
+                    Direction <div data-bind="style: {transform: rotate({wind.deg}deg)}" class="wind-deg">^</div>
+                </div>
+          </div>
+        </div>
+    </div>
+</template>

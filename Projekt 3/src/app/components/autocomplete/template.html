@@ -1,0 +1,62 @@
+<template>
+    <style>
+        :host{
+            display: inline-block;
+            margin: 5px;
+            position: relative;
+        }
+        input {
+            border: none;
+            border: 1px solid var(--silver);
+            padding: 1rem 2rem;
+            background-color: transparent;
+            color: var(--font-color);
+            transition: all 300ms ease-in-out;
+        }
+        input:active,
+        input:focus {
+            outline: none;
+            background-color: #FFF;
+            color: var(--font-color)
+        }
+        input::placeholder {
+            color: var(--silver)
+        }
+        .items-container.open {
+            opacity: 1;
+            transform: scaleY(1);
+        }
+        .items-container {
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top left;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 42px;
+            background: RGBA(255, 255, 255, .7);
+            box-shadow: 5px 4px 15px RGBA(0 0 0 / 10%);
+            transition: all 200ms ease-in-out;
+        }
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul li {
+            padding: 5px 2rem;            
+            overflow-x: hidden;
+            transition: all  200ms ease;
+        }
+        ul li:hover {
+            cursor: pointer;
+            transform: translateX(20px);
+            font-weight: bold;
+        }
+    </style>
+    <input  data-bind="placeholder: placeholder | value: value" />
+    <div class="items-container" data-bind="open: open">
+        <ul data-bind="for: {<li>{autocompleteItems}</li>}">
+        </ul>
+    </div>
+</template>

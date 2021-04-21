@@ -1,0 +1,23 @@
+GET https://api.openweathermap.org/data/2.5/onecall
+    ?lat=50.0833
+    &lon=19.9167
+    &appid=313ebf607e79fcff7d85a287b0325f30 HTTP/1.1
+
+###
+
+ GET https://api.openweathermap.org/data/2.5/weather
+    ?q=krakow
+    &appid=313ebf607e79fcff7d85a287b0325f30&units=metric HTTP/1.1
+
+###
+
+POST https://countriesnow.space/api/v0.1/countries/cities HTTP/1.1
+content-type: application/json
+
+{
+    "country": "germany"
+}
+
+###
+
+GET https://countriesnow.space/api/v0.1/countries/capital HTTP/1.1

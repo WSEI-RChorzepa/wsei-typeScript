@@ -2,12 +2,17 @@ const path = require("path");
 const dotenv = require("dotenv");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { resolveTsAliases } = require("resolve-ts-aliases");
 
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
     main: "./src/index.ts",
+    webcomponents: [
+      "./node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
+      "./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
+    ],
   },
   output: {
     filename: "[name].js",
@@ -31,7 +36,12 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
+    alias: {
+      "@components": "/src/app/components",
+      "@services": "/src/app/services",
+      "@utils": "/src/app/utils",
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
