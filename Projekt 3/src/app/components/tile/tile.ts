@@ -20,12 +20,34 @@ const initialState: Tile.IState = {
     deg: 0,
     speed: 0,
   },
+  refresh: {
+    auto: false,
+    timeout: null,
+  },
 };
 
 export class TileComponent extends ComponentWithState<Tile.IState> {
-  constructor() {
+  private onRefresh;
+
+  constructor(props: Tile.IProps) {
     super(template);
+    this.onRefresh = props.onRefresh;
   }
+
+  private handleTimeout = () => {
+    if (this.state.refresh.auto) {
+      this.state.refresh.timeout = setTimeout(() => {
+        this.handleRefresh();
+        clearTimeout(this.state.refresh.timeout as ReturnType<typeof setTimeout>);
+      }, 5000);
+    }
+  };
+
+  private handleRefresh = async () => {
+    const newState = await this.onRefresh(this.state.place);
+    this.setState = newState;
+    this.handleTimeout();
+  };
 
   protected state: Tile.IState = new Proxy<Tile.IState>(initialState, {
     get(object, target, receiver) {
@@ -77,8 +99,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
   };
 
   connectedCallback() {
-    const json = JSON.parse(localStorage.getItem("weather") as string) as Weather.RootObject;
-    this.setState = json;
+    this.handleTimeout();
   }
 
   set setState(newState: Weather.RootObject) {

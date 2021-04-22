@@ -88,9 +88,14 @@ namespace Tile {
       deg: number;
       speed: number;
     };
+    refresh: {
+      auto: boolean;
+      timeout: ReturnType<typeof setTimeout> | null;
+    };
   }
 
   interface IProps {
-    data: Weather.RootObject;
+    data?: Weather.RootObject;
+    onRefresh(place: string): Promise<Weather.RootObject>;
   }
 }

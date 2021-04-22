@@ -63,13 +63,9 @@ export class AutocompleteComponent extends ComponentWithState<Autocomplete.IStat
     const value = (ev.target as HTMLElement).innerText;
     if (value.length) {
       this.state.value = value;
+      this.state.callback(value);
     }
-    console.log(value);
   };
-
-  private get autocompleteItems(): HTMLDivElement {
-    return this.root.querySelector(".items-container") as HTMLDivElement;
-  }
 
   private get input(): HTMLInputElement {
     return this.root.querySelector("input") as HTMLInputElement;

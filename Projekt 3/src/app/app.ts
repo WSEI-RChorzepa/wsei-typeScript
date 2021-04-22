@@ -1,44 +1,54 @@
-import { Weather } from "./services/types";
-import { LocationService } from "@services";
-import { AutocompleteComponent } from "@components";
+import { Weather } from "@services/types";
+import { LocationService, WeatherService } from "@services";
+import { AutocompleteComponent, TileComponent } from "@components";
 
 class App {
-  cities: string[] = [];
-  service: Weather.IService;
-  weatherContainer = document.querySelector("#weather-cards") as HTMLDivElement;
+  constructor() {}
+  private autocomplete?: AutocompleteComponent;
 
-  autocomplete?: AutocompleteComponent;
-
-  constructor(service: Weather.IService) {
-    this.service = service;
+  private contains(value: string, values: string[]) {
+    return values.find((v) => v.toLocaleLowerCase() === value.toLocaleLowerCase());
   }
 
-  isAdded = (city: string): boolean => this.cities.find((_) => _.toLowerCase().includes(city.toLowerCase())) !== undefined;
+  private get getAddedPlaces(): string[] {
+    const key = "addedPlaces";
+    return localStorage.getItem(key) !== null ? (JSON.parse(localStorage.getItem(key) as string) as string[]) : [];
+  }
 
-  handleSearch = async (city: string): Promise<void> => {
-    if (city) {
-      if (this.isAdded(city)) {
-        alert(`City ${city} was already added.`);
-      } else {
-        //TODO CREATE TILE
-      }
+  private set addPlace(value: string) {
+    const key = "addedPlaces";
+    const places = this.getAddedPlaces;
+
+    if (!this.contains(value, places)) {
+      places.push(value);
+      localStorage.setItem(key, JSON.stringify(places));
     }
+  }
+
+  handleRefreshTileComponent = (): Promise<Weather.RootObject> => {
+    return new Promise<Weather.RootObject>(async (resolve) => {
+      const response = await WeatherService.getWeather("Kraków");
+
+      if (response.status === 200) {
+        resolve(response.body as Weather.RootObject);
+      } else {
+        //TODO ALERT
+        alert(`Error: ${response.status} ${response.statusText}`);
+      }
+    });
   };
 
-  run = () => {
-    this.initializeAutocomplete();
-    // this.search.handleSearch(this.handleSearch);
-    // this.weatherContainer.appendChild(new Card({ city: "Krakow", weeatherService: this.service }));
-  };
+  private get autocompleteContainer(): HTMLDivElement {
+    return document.querySelector("#autocomplete") as HTMLDivElement;
+  }
 
-  initializeAutocomplete = async (): Promise<void> => {
-    const container = document.querySelector("#autocomplete") as HTMLDivElement;
+  private get tilesContainer(): HTMLDivElement {
+    return document.querySelector("#tiles") as HTMLDivElement;
+  }
 
+  private handleCreateAutocomplete = async (): Promise<void> => {
     this.autocomplete = new AutocompleteComponent();
     this.autocomplete.placeholder = "Please enter name...";
-    this.autocomplete.value = "Kraków";
-
-    container.appendChild(this.autocomplete);
 
     if (!localStorage.getItem("places")) {
       const response = await LocationService.getPlaces();
@@ -49,7 +59,41 @@ class App {
     const places: string[] = JSON.parse(data);
 
     this.autocomplete.items = places;
-    this.autocomplete.callback = (value: string) => console.log("TODO CREATE TILE");
+    this.autocomplete.callback = (value: string) => this.handleAutocompleteOnChange(value);
+    this.autocompleteContainer.appendChild(this.autocomplete);
+  };
+
+  private handleCreateTile = async (value: string) => {
+    const response = await WeatherService.getWeather(value);
+
+    if (response.status === 200) {
+      const tileComponent = new TileComponent({ onRefresh: this.handleRefreshTileComponent });
+      tileComponent.setState = response.body as Weather.RootObject;
+      this.tilesContainer.appendChild(tileComponent);
+      this.addPlace = value;
+    }
+  };
+
+  private handleAutocompleteOnChange = async (value: string): Promise<void> => {
+    if (!this.contains(value, this.getAddedPlaces)) {
+      this.handleCreateTile(value);
+    } else {
+    }
+  };
+
+  private handleRecreateWeatherTiles = () => {
+    const places = this.getAddedPlaces;
+
+    if (!places.length) return;
+
+    for (let place of places) {
+      this.handleCreateTile(place);
+    }
+  };
+
+  run = () => {
+    this.handleCreateAutocomplete();
+    this.handleRecreateWeatherTiles();
   };
 }
 
