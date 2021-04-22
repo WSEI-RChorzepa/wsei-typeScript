@@ -2,11 +2,15 @@
     <style>
         :host {
             display: inline-block;
+            position: relative;
             border: 1px solid rgba(0, 0, 0, .1);
             padding: 1rem;
             background-color: #FFF;
+            width: 265px;
         }
-
+        .grid:hover {
+            cursor: pointer;
+        }
         .grid {
             display: grid;
             grid-template-rows: auto auto;
@@ -99,8 +103,22 @@
             justify-content: flex-start;
             align-items: center;
         }
+        .close-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            border: none;
+            background-color: transparent;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 999;
+        }
+        .close-button:hover {
+            cursor: pointer;
+        }
     </style>
     <div class="grid">
+        <button class="close-button">&times;</button>
 
         <div class="header">
             <h4 data-bind="text: place"></h4>

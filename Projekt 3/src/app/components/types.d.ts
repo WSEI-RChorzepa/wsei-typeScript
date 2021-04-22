@@ -61,10 +61,12 @@ namespace Autocomplete {
 
 namespace Alert {
   interface IState extends State {
+    title: string;
     message: string;
     type: "default" | "success" | "info" | "warning" | "danger";
   }
   interface IProps {
+    title: string;
     message: string;
     type: "default" | "success" | "info" | "warning" | "danger";
   }
@@ -88,7 +90,12 @@ namespace Tile {
       deg: number;
       speed: number;
     };
+    coord: {
+      lat: number;
+      lon: number;
+    };
     refresh: {
+      delay: number;
       auto: boolean;
       timeout: ReturnType<typeof setTimeout> | null;
     };

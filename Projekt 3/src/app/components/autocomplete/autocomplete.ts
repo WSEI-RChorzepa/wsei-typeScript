@@ -19,6 +19,16 @@ export class AutocompleteComponent extends ComponentWithState<Autocomplete.IStat
     super(template);
   }
 
+  static get observedAttributes() {
+    return ["placeholder"];
+  }
+
+  attributeChangedCallback(name: string, oldVal: string, newVal: string) {
+    if (name === "placeholder") {
+      this.state.placeholder = newVal;
+    }
+  }
+
   protected state: Autocomplete.IState = new Proxy<Autocomplete.IState>(initialState, {
     get(object, target, receiver) {
       return Reflect.get(object, target, receiver);
@@ -64,6 +74,7 @@ export class AutocompleteComponent extends ComponentWithState<Autocomplete.IStat
     if (value.length) {
       this.state.value = value;
       this.state.callback(value);
+      this.input.value = "";
     }
   };
 
@@ -110,6 +121,6 @@ export class AutocompleteComponent extends ComponentWithState<Autocomplete.IStat
   }
 
   disconnectedCallback() {
-    // this.configuration.elements["input"].removeEventListener("keyup", this.handleChange);
+    this.input.removeEventListener("keyup", this.handleChange);
   }
 }

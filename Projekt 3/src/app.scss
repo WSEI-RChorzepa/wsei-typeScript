@@ -8,19 +8,22 @@
 body {
   background-color: #ecf0f1;
   height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
-  --primary: #3498db;
+  --primary: rgba(52, 152, 219, 1);
+  --primary-light: rgba(52, 152, 219, 0.5);
   --danger: #e74c3c;
   --info: #16a085;
   --silver: #bdc3c7;
+  --clouds: #ecf0f1;
   --font-color: #34495e;
-
-  --alert-success: #1abc9c;
-  --alert-warning: #e67e22;
-  --alert-danger: #e74c3c;
-  --alert-info: #3498db;
+  --alert-success: rgba(46, 204, 113, 0.7);
+  --alert-warning: rgba(230, 126, 34, 0.7);
+  --alert-danger: rgba(231, 76, 60, 0.7);
+  --alert-info: rgba(52, 152, 219, 0.7);
 }
 
 #weather-cards {
@@ -29,4 +32,49 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.navbar {
+  height: 60px;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+#tiles {
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  border: var(--clouds);
+  background-color: #fff;
+  padding: 1rem 2rem;
+  font-weight: 200;
+  transition: all 200ms ease-in-out;
+  border: 1px solid var(--clouds);
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--clouds);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    border-radius: 15px 0;
+  }
+  &[is="close-button"] {
+    border: none;
+  }
+}
+
+#alert-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999;
 }

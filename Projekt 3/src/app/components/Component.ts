@@ -1,13 +1,9 @@
-import { IConfiguration, State } from "./types";
-
-abstract class Component<TState extends State> extends HTMLElement {
+abstract class Component extends HTMLElement {
   constructor(template: string) {
     super();
     this.loadTemplate(template);
   }
 
-  protected abstract state: TState;
-  protected abstract configuration: IConfiguration;
   protected root: ShadowRoot = this.attachShadow({ mode: "closed" });
 
   protected loadTemplate = (source: string) => {

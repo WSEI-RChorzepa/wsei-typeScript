@@ -1,0 +1,39 @@
+<template>
+    <style>
+        :host {
+            display: inline-block;
+            text-align: center;
+            position: absolute;
+            top: 30vh;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .spinner {
+            border-left: 2px solid var(--primary);
+            border-top: 2px solid transparent;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            animation: rotate 500ms infinite linear;
+        }
+        span {
+            color: rgba(0,0,0, .3);
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg)
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="wrapper">
+        <div class="spinner"></div>
+        <span>...Dowloading data...</span>
+    </div>
+</template>

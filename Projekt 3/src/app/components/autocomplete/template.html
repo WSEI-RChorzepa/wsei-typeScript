@@ -7,17 +7,16 @@
         }
         input {
             border: none;
-            border: 1px solid var(--silver);
+            border-bottom: 1px solid var(--clouds);
             padding: 1rem 2rem;
-            background-color: transparent;
+            background-color: #FFF;
             color: var(--font-color);
             transition: all 300ms ease-in-out;
         }
         input:active,
         input:focus {
             outline: none;
-            background-color: #FFF;
-            color: var(--font-color)
+            border-bottom: 1px solid var(--primary-light);
         }
         input::placeholder {
             color: var(--silver)
@@ -34,14 +33,18 @@
             position: absolute;
             left: 0;
             top: 42px;
-            background: RGBA(255, 255, 255, .7);
+            background: #FFF;
             box-shadow: 5px 4px 15px RGBA(0 0 0 / 10%);
             transition: all 200ms ease-in-out;
+            z-index: 9;
         }
         ul{
             list-style: none;
             margin: 0;
             padding: 0;
+            max-height: 70vh;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         ul li {
             padding: 5px 2rem;            

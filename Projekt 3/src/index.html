@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,14 +10,19 @@
 </head>
 <body>
 
-    <div>
-        <div id="autocomplete"></div>
-        <!-- <search-group></search-group> -->
+    <div class="navbar">
+        <div id="autocomplete">
+            <app-autocomplete placeholder="Enter place name..."></app-autocomplete>
+        </div>
+        <div id="actions">
+            <button is='clear-history' >Clear history</button>
+        </div>
     </div>
 
     <div id="tiles">
-
+        
     </div>
 
+        
 </body>
 </html>

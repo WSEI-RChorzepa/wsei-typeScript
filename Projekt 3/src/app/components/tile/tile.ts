@@ -2,36 +2,63 @@ import template from "./template.html";
 import { Component, Tile } from "@components/types";
 import { ComponentWithState } from "@components";
 import { Weather } from "@services/types";
-
-const initialState: Tile.IState = {
-  pending: false,
-  updatedAt: new Date(),
-  place: "",
-  icon: "",
-  description: "",
-  temp: {
-    current: 0,
-    min: 0,
-    max: 0,
-  },
-  humidity: 0,
-  pressure: 0,
-  wind: {
-    deg: 0,
-    speed: 0,
-  },
-  refresh: {
-    auto: false,
-    timeout: null,
-  },
-};
+import { WeatherService } from "@services";
+import { localStorageHelpers } from "@utils/localStorageHelpers";
+import { createAlert } from "@utils/alert";
 
 export class TileComponent extends ComponentWithState<Tile.IState> {
-  private onRefresh;
-
-  constructor(props: Tile.IProps) {
+  constructor() {
     super(template);
-    this.onRefresh = props.onRefresh;
+  }
+
+  private initialState: Tile.IState = {
+    pending: false,
+    updatedAt: new Date(),
+    place: "",
+    icon: "",
+    description: "",
+    temp: {
+      current: 0,
+      min: 0,
+      max: 0,
+    },
+    humidity: 0,
+    pressure: 0,
+    wind: {
+      deg: 0,
+      speed: 0,
+    },
+    refresh: {
+      auto: false,
+      timeout: null,
+      delay: 2 * 60000,
+    },
+    coord: {
+      lat: 0,
+      lon: 0,
+    },
+  };
+
+  set setState(newState: Weather.RootObject) {
+    this.state.place = newState.name;
+    this.state.updatedAt = new Date();
+    this.state.temp = {
+      current: newState.main.temp,
+      min: newState.main.temp_min,
+      max: newState.main.temp_max,
+    };
+    this.state.humidity = newState.main.humidity;
+    this.state.pressure = newState.main.pressure;
+    this.state.wind = {
+      speed: newState.wind.speed,
+      deg: newState.wind.deg,
+    };
+    this.state.icon = newState.weather[0].icon;
+    this.state.description = newState.weather[0].description;
+    this.state.coord = {
+      lat: newState.coord.lat,
+      lon: newState.coord.lon,
+    };
   }
 
   private handleTimeout = () => {
@@ -39,17 +66,24 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       this.state.refresh.timeout = setTimeout(() => {
         this.handleRefresh();
         clearTimeout(this.state.refresh.timeout as ReturnType<typeof setTimeout>);
-      }, 5000);
+      }, this.state.refresh.delay);
     }
   };
 
   private handleRefresh = async () => {
-    const newState = await this.onRefresh(this.state.place);
-    this.setState = newState;
+    const response = await WeatherService.getWeather(this.state.place);
+
+    if (response.status !== 200) {
+      const { status, statusText } = response;
+      createAlert.danger(`Error ${status} ${statusText}`, "Wystąpił błąd podczas odświeżania danych pogodowych.");
+      return;
+    }
+
+    this.setState = response.body as Weather.RootObject;
     this.handleTimeout();
   };
 
-  protected state: Tile.IState = new Proxy<Tile.IState>(initialState, {
+  protected state: Tile.IState = new Proxy<Tile.IState>(this.initialState, {
     get(object, target, receiver) {
       return Reflect.get(object, target, receiver);
     },
@@ -98,25 +132,41 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
     },
   };
 
-  connectedCallback() {
-    this.handleTimeout();
+  get closeButton(): HTMLButtonElement {
+    return this.root.querySelector("button.close-button") as HTMLButtonElement;
   }
 
-  set setState(newState: Weather.RootObject) {
-    this.state.place = newState.name;
-    this.state.updatedAt = new Date();
-    this.state.temp = {
-      current: newState.main.temp,
-      min: newState.main.temp_min,
-      max: newState.main.temp_max,
-    };
-    this.state.humidity = newState.main.humidity;
-    this.state.pressure = newState.main.pressure;
-    this.state.wind = {
-      speed: newState.wind.speed,
-      deg: newState.wind.deg,
-    };
-    this.state.icon = newState.weather[0].icon;
-    this.state.description = newState.weather[0].description;
+  private handleRemove = (): void => {
+    localStorageHelpers.removePlace(this.state.place);
+    clearTimeout(this.state.refresh.timeout as ReturnType<typeof setTimeout>);
+    this.remove();
+  };
+
+  private handleGetForecast = async () => {
+    const { lat, lon } = this.state.coord;
+
+    const response = await WeatherService.getForecast(lat, lon);
+
+    if (response.status !== 200) {
+      const { status, statusText } = response;
+      createAlert.danger(
+        `Error ${status} ${statusText}`,
+        `Wystąpił nieoczekiwany błąd podczas pobierania prognozy dla miejscowości: ${this.state.place}`
+      );
+      return;
+    }
+
+    localStorage.setItem("forecast", JSON.stringify(response.body));
+  };
+
+  connectedCallback() {
+    this.handleTimeout();
+    this.closeButton.addEventListener("click", this.handleRemove);
+    this.addEventListener("click", this.handleGetForecast);
+  }
+
+  disconnectedCallback() {
+    this.closeButton.removeEventListener("click", this.handleRemove);
+    this.removeEventListener("click", this.handleGetForecast);
   }
 }

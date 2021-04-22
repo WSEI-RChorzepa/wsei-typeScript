@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\autocomplete"
+  ],
+  "SelectedNode": "\\src\\app\\components\\autocomplete\\autocomplete.ts",
+  "PreviewInSolutionExplorer": false
+}

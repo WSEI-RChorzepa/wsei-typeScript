@@ -1,0 +1,84 @@
+<template>
+    <style>
+        :host {
+            position: relative;
+            display: block;
+            margin-bottom: 5px;
+        }
+        [data-bind$="title"] {
+            font-size: 1.1rem;
+            font-weight: 200;
+            text-decoration: underline;
+            margin: 5px;
+        }
+        .alert {
+            width: 30vw;
+            padding: 1rem 2rem;
+        }
+        .alert-warning {
+            color: #FFF;
+            background-color: var( --alert-warning);
+        }
+        .alert-success {
+            background-color: var(--alert-success);
+            color: #FFF;
+        }
+        .alert-info {
+            background-color: var(--alert-info);
+            color: #FFF;
+        }
+        .alert-danger {
+            background-color: var(--alert-danger);
+            color: #FFF;
+        }
+        .progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background-color: rgba(0,0,0, .2);
+            transform-origin: left;
+            animation: shrink 5s forwards;
+        }
+        button[is='close-button'] {
+            background-color: transparent;       
+            border: none;
+            border-radius: 50%;          
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #FFF;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        @keyframes slideout {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(40vw);
+            }
+        }
+        @keyframes shrink {
+            from {
+            transform: scaleX(1);
+        }
+            to {
+                transform: scaleX(0);
+            }
+        }
+        .slideout {
+            animation: slideout 250ms forwards ease-out;
+        }
+        button[is='close-button']:hover {
+            cursor: pointer;
+        }
+    </style>
+     <div data-bind="class: type" class="alert">
+        <h4 data-bind="text: title"></h4>
+        <p data-bind="text: message"></p>
+        <button is="close-button"></button>
+        <div class="progress"></div>
+    </div>
+</template>
