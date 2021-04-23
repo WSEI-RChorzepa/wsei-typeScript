@@ -148,9 +148,11 @@ namespace WeatherHourly {
 
 namespace Forecast {
   interface IState extends State {
+    place: string;
     timezone: string;
     timezone_offset: number;
     hourly: Hourly[];
     daily: Daily[];
+    view: "hourly" | "daily";
   }
 }

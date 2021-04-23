@@ -1,6 +1,6 @@
 import template from "./templateHourly.html";
-import { Component, WeatherHourly } from "@components/types";
 import { ComponentWithState } from "@components";
+import { Component, WeatherHourly } from "@components/types";
 import { Forecast } from "@services/types";
 import { getDate } from "@utils/dateHelpers";
 
@@ -42,7 +42,7 @@ export class HourlyComponent extends ComponentWithState<WeatherHourly.IState> {
   protected configuration: Component.IConfiguration = {
     bindings: {
       date: {
-        onChange: () => this.updateElement("date", `${this.state.date.toLocaleDateString("pl")} ${this.state.date.toLocaleTimeString("pl")}`),
+        onChange: () => this.updateElement("date", this.state.date.toLocaleTimeString("pl")),
       },
       temp: {
         onChange: () => this.updateElement("temp"),
@@ -69,9 +69,9 @@ export class HourlyComponent extends ComponentWithState<WeatherHourly.IState> {
   };
 
   set setState(newState: Forecast.Hourly) {
-    const { temp, humidity, pressure, wind_speed, wind_deg, weather } = newState;
+    const { dt, temp, humidity, pressure, wind_speed, wind_deg, weather } = newState;
 
-    this.state.date = getDate(newState.dt, this.state.timezone_offset);
+    this.state.date = getDate(dt, this.state.timezone_offset);
     this.state.temp = temp;
     this.state.humidity = humidity;
     this.state.pressure = pressure;

@@ -7,6 +7,7 @@ export * from "./button/button";
 export * from "./spinner/spinner";
 
 export * from "./forecast/hourly";
+export * from "./forecast/daily";
 export * from "./forecast/forecast";
 
 export { ComponentWithState };

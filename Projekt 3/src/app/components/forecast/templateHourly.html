@@ -5,7 +5,6 @@
             position: relative;
             border: 1px solid rgba(0, 0, 0, .1);
             padding: .5rem;
-            background-color: #FFF;
             margin: 1px;
             width: 110px;
         }
@@ -16,7 +15,7 @@
             align-items: center;
         }
         [data-bind$="date"] {
-            text-align: center;
+            text-align: center;       
         }   
         [data-bind$="description"] {
             text-transform: capitalize;
@@ -29,11 +28,15 @@
             margin: 0 .5rem;
         }
         .row {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+        .day {
+            font-weight: bold;
+            font-size: 1.2rem;
         }
     </style>
     <div class="wrapper">

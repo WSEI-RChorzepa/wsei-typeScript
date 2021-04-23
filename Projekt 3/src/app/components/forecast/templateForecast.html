@@ -2,10 +2,66 @@
     <style>
         :host {
             display: block;
+        }   
+        .day {
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 10px 0;
+        }
+        .wrapper {
+            margin-bottom: 2.5rem;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            border-left: 5px solid var(--primary-light);
+            background-color: #FFF;
+        }
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            font-family: "Roboto";
+            font-weight: 200;
+            padding: 1rem 2rem;         
+            border: 1px solid var(--clouds);
+            background-color: #FFF;
+            transition: all 200ms ease-in-out;
+        }
+        button:hover{
+            cursor: pointer;
+            text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+            border-radius: 15px 0;
+        }
+        .hidden {
+            opacity: 0;
+        }
+        [data-bind$="place"] {
+            font-size: 2rem;
+            margin: 0 0 -5px 0;
+        }
+        [data-bind="text: view"] {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+        #daily > .wrapper {
+            padding-top: 1rem;
         }
     </style>
     <div>
-        <div id="daily" class="container"></div>
-        <div id="hourly" class="container"></div>
+        <div class="header">
+           <div class="mb-1">
+            <h4 data-bind="text: place"></h4>
+            <small data-bind="text: view"></small>
+           </div>
+            <button style="display: none;">Switch to daily view</button>
+        </div>
+        <div id="daily" class="container" style="display: none;"></div>
+        <div id="hourly" class="container" style="display: none;"></div>
     </div>
 </template>

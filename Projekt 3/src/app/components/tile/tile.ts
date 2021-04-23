@@ -161,6 +161,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       return;
     }
 
+    this.forecast.setPlace = this.state.place;
     this.forecast.setState = response.body as Forecast.RootObject;
 
     localStorage.setItem("forecast", JSON.stringify(response.body));

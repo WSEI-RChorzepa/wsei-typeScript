@@ -1,42 +1,119 @@
 <template>
     <style>
-        :host {
+      :host {
             display: inline-block;
             position: relative;
+            border: 1px solid rgba(0, 0, 0, .1);
+            padding: .5rem;
+            margin: 1px;
+            width: 250px;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        [data-bind$="date"] {
+            text-align: center;       
+        }   
+        [data-bind$="description"] {
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+        .wind-deg {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 .5rem;
+        }
+        .row {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .day {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 
+                "info info"
+                "params times";
+        }
+        .info {
+            grid-area: info;
+        }
+        .params {
+            grid-area: params;
+        }
+        .times {
+            grid-area: times;
         }
     </style>
-    <div>
+    <div class="grid wrapper">
 
-        <div class="row">
-            Day<div><strong data-bind="text: day"></strong> &deg;C</div>
+        <div class="info">
+            <div class="row">
+                <strong data-bind="text: date"></strong> 
+            </div>
+    
+            <div class="row">
+                <img data-bind="src: icon" />
+            </div>
+    
+            <div class="row">
+                <span data-bind="text: description"></span>
+            </div>
         </div>
 
-        <div class="current-icon">
-            <img data-bind="src: icon" />
+        <div class="params">
+            <div class="row">
+                Min temp<div><strong data-bind="text: temp.min"></strong> &deg;C</div>
+            </div>
+    
+            <div class="row">
+                Max temp<div><strong data-bind="text: temp.max""></strong> &deg;C</div>
+            </div>
+    
+            <div class=" row">
+                Preasure<div><strong data-bind="text: pressure"></strong> hPA</div>
+            </div>
+    
+            <div class="row">
+                Humidity<div><strong data-bind="text: humidity"></strong> %</div>
+            </div>
+    
+            <div class="row">
+                Wind <div><strong data-bind="text: wind.speed"></strong> mph</div>
+            </div>
+    
+            <div class="row">
+                Direction <div data-bind="style: {transform: rotate({wind.deg}deg)}" class="wind-deg">^</div>
+            </div>
         </div>
 
-        <div class="row">
-            Min temp<div><strong data-bind="text: temp.min"></strong> &deg;C</div>
-        </div>
+        <div class="times">
+            <div class="row">
+                Sunrise<div><strong data-bind="text: sunrise"></strong> </div>
+            </div>
 
-        <div class="row">
-            Max temp<div><strong data-bind="text: temp.max""></strong> &deg;C</div>
-        </div>
+            <div class="row">
+                Sunset<div><strong data-bind="text: sunset"></strong> </div>
+            </div>
 
-        <div class=" row">
-            Preasure<div><strong data-bind="text: pressure"></strong> hPA</div>
-        </div>
+            <div class="row">
+                Moonrise<div><strong data-bind="text: moonrise"></strong> </div>
+            </div>
 
-        <div class="row">
-            Humidity<div><strong data-bind="text: humidity"></strong> %</div>
-        </div>
-
-        <div class="row">
-            Wind <div><strong data-bind="text: wind.speed"></strong> mph</div>
-        </div>
-
-        <div class="row">
-            Direction <div data-bind="style: {transform: rotate({wind.deg}deg)}" class="wind-deg">^</div>
+            <div class="row">
+                Moonset<div><strong data-bind="text: moonset"></strong> </div>
+            </div>
         </div>
 
     </div>

@@ -36,13 +36,14 @@ body {
 #tiles {
   grid-area: tiles;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 #forecast {
   grid-area: forecast;
+  padding: 0 2rem;
 }
 
 #weather-cards {
