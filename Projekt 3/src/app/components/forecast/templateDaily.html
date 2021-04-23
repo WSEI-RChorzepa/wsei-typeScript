@@ -1,0 +1,43 @@
+<template>
+    <style>
+        :host {
+            display: inline-block;
+            position: relative;
+        }
+    </style>
+    <div>
+
+        <div class="row">
+            Day<div><strong data-bind="text: day"></strong> &deg;C</div>
+        </div>
+
+        <div class="current-icon">
+            <img data-bind="src: icon" />
+        </div>
+
+        <div class="row">
+            Min temp<div><strong data-bind="text: temp.min"></strong> &deg;C</div>
+        </div>
+
+        <div class="row">
+            Max temp<div><strong data-bind="text: temp.max""></strong> &deg;C</div>
+        </div>
+
+        <div class=" row">
+            Preasure<div><strong data-bind="text: pressure"></strong> hPA</div>
+        </div>
+
+        <div class="row">
+            Humidity<div><strong data-bind="text: humidity"></strong> %</div>
+        </div>
+
+        <div class="row">
+            Wind <div><strong data-bind="text: wind.speed"></strong> mph</div>
+        </div>
+
+        <div class="row">
+            Direction <div data-bind="style: {transform: rotate({wind.deg}deg)}" class="wind-deg">^</div>
+        </div>
+
+    </div>
+</template>

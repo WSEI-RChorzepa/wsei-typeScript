@@ -26,6 +26,25 @@ body {
   --alert-info: rgba(52, 152, 219, 0.7);
 }
 
+#weather-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "tiles forecast";
+}
+
+#tiles {
+  grid-area: tiles;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#forecast {
+  grid-area: forecast;
+}
+
 #weather-cards {
   display: flex;
   flex-wrap: wrap;
@@ -43,14 +62,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-}
-
-#tiles {
-  padding: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 }
 
 button {

@@ -4,10 +4,8 @@ export const localStorageHelpers = (() => {
 
   const addPlace = (item: string): void => {
     const items = localStorage.getItem(ADDED_PLACES);
+    const data = JSON.parse(items as string) === null ? [] : (JSON.parse(items as string) as string[]);
 
-    if (items === null) return;
-
-    const data = JSON.parse(items as string) as string[];
     data.push(item);
 
     localStorage.setItem(ADDED_PLACES, JSON.stringify(data));

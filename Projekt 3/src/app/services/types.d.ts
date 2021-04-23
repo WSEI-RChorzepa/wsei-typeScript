@@ -108,7 +108,7 @@ namespace Forecast {
     wind_speed: number;
     wind_deg: number;
     wind_gust: number;
-    weather: Weather2[];
+    weather: Weather[];
     pop: number;
     rain: Rain;
   }

@@ -1,10 +1,11 @@
 import template from "./template.html";
 import { Component, Tile } from "@components/types";
 import { ComponentWithState } from "@components";
-import { Weather } from "@services/types";
+import { Weather, Forecast } from "@services/types";
 import { WeatherService } from "@services";
 import { localStorageHelpers } from "@utils/localStorageHelpers";
 import { createAlert } from "@utils/alert";
+import { ForecastComponent } from "@components/forecast/forecast";
 
 export class TileComponent extends ComponentWithState<Tile.IState> {
   constructor() {
@@ -124,7 +125,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
         },
       },
       icon: {
-        onChange: () => this.updateElement<HTMLElement>("icon", `http://openweathermap.org/img/wn/${this.state.icon}@2x.png`),
+        onChange: () => this.updateElement<HTMLElement>("icon", `http://openweathermap.org/img/wn/${this.state.icon}.png`),
       },
       description: {
         onChange: () => this.updateElement<HTMLElement>("description"),
@@ -132,8 +133,12 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
     },
   };
 
-  get closeButton(): HTMLButtonElement {
+  private get closeButton(): HTMLButtonElement {
     return this.root.querySelector("button.close-button") as HTMLButtonElement;
+  }
+
+  private get forecast(): ForecastComponent {
+    return document.querySelector("weather-forecast") as ForecastComponent;
   }
 
   private handleRemove = (): void => {
@@ -155,6 +160,8 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       );
       return;
     }
+
+    this.forecast.setState = response.body as Forecast.RootObject;
 
     localStorage.setItem("forecast", JSON.stringify(response.body));
   };

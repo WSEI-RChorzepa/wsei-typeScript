@@ -106,3 +106,51 @@ namespace Tile {
     onRefresh(place: string): Promise<Weather.RootObject>;
   }
 }
+
+namespace WeatherDaily {
+  interface IState extends State {
+    date: Date;
+    sunrise: Date;
+    sunset: Date;
+    moonrise: Date;
+    moonset: Date;
+    temp: {
+      min: number;
+      max: number;
+    };
+    pressure: number;
+    humidity: number;
+    wind: {
+      deg: number;
+      speed: number;
+    };
+    icon: string;
+    description: string;
+    timezone_offset: number;
+  }
+}
+
+namespace WeatherHourly {
+  interface IState extends State {
+    date: Date;
+    temp: number;
+    pressure: number;
+    humidity: number;
+    wind: {
+      deg: number;
+      speed: number;
+    };
+    icon: string;
+    description: string;
+    timezone_offset: number;
+  }
+}
+
+namespace Forecast {
+  interface IState extends State {
+    timezone: string;
+    timezone_offset: number;
+    hourly: Hourly[];
+    daily: Daily[];
+  }
+}

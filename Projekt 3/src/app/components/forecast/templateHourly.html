@@ -1,0 +1,74 @@
+<template>
+    <style>
+        :host {
+            display: inline-block;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, .1);
+            padding: .5rem;
+            background-color: #FFF;
+            margin: 1px;
+            width: 110px;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        [data-bind$="date"] {
+            text-align: center;
+        }   
+        [data-bind$="description"] {
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+        .wind-deg {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 .5rem;
+        }
+        .row {
+            margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <div class="wrapper">
+
+        <div class="row">
+            <strong data-bind="text: date"></strong> 
+        </div>
+
+        <div class="row">
+            <img data-bind="src: icon" />
+        </div>
+
+        <div class="row">
+            <span data-bind="text: description"></span>
+        </div>
+
+        <div class="row">
+            Temp<div><strong data-bind="text: temp"></strong> &deg;C</div>
+        </div>
+
+        <div class="row">
+            Preasure<div><strong data-bind="text: pressure"></strong> hPA</div>
+        </div>
+
+        <div class="row">
+            Humidity<div><strong data-bind="text: humidity"></strong> %</div>
+        </div>
+
+        <div class="row">
+            Wind <div><strong data-bind="text: wind.speed"></strong> mph</div>
+        </div>
+
+        <div class="row">
+            Direction <div data-bind="style: {transform: rotate({wind.deg}deg)}" class="wind-deg">^</div>
+        </div>
+      
+    </div>
+</template>
