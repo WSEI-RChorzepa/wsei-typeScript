@@ -1,4 +1,5 @@
-import { Weather } from "app/services/types";
+import { DateTime } from "app/types";
+import { Weather } from "@services/types";
 
 export type State = {
   [key: string]: object | string | number | boolean | Date | null;
@@ -64,18 +65,20 @@ namespace Alert {
     title: string;
     message: string;
     type: "default" | "success" | "info" | "warning" | "danger";
+    duration: number;
   }
   interface IProps {
     title: string;
     message: string;
     type: "default" | "success" | "info" | "warning" | "danger";
+    duration?: number;
   }
 }
 
 namespace Tile {
   interface IState extends State {
     pending: boolean;
-    updatedAt: Date;
+    updatedAt: DateTime;
     place: string;
     icon: string;
     description: string;
@@ -109,11 +112,11 @@ namespace Tile {
 
 namespace WeatherDaily {
   interface IState extends State {
-    date: Date;
-    sunrise: Date;
-    sunset: Date;
-    moonrise: Date;
-    moonset: Date;
+    date: DateTime;
+    sunrise: DateTime;
+    sunset: DateTime;
+    moonrise: DateTime;
+    moonset: DateTime;
     temp: {
       min: number;
       max: number;
@@ -132,7 +135,7 @@ namespace WeatherDaily {
 
 namespace WeatherHourly {
   interface IState extends State {
-    date: Date;
+    date: DateTime;
     temp: number;
     pressure: number;
     humidity: number;

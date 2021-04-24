@@ -11,12 +11,12 @@ export class DailyComponent extends ComponentWithState<WeatherDaily.IState> {
     this.setState = newState;
   }
 
-  private initialState: WeatherDaily.IState = {
-    date: new Date(),
-    moonrise: new Date(),
-    moonset: new Date(),
-    sunrise: new Date(),
-    sunset: new Date(),
+  protected state: WeatherDaily.IState = this.createState<WeatherDaily.IState>({
+    date: null,
+    moonrise: null,
+    moonset: null,
+    sunrise: null,
+    sunset: null,
     temp: {
       min: 0,
       max: 0,
@@ -30,26 +30,12 @@ export class DailyComponent extends ComponentWithState<WeatherDaily.IState> {
     icon: "",
     description: "",
     timezone_offset: 0,
-  };
-
-  protected state: WeatherDaily.IState = new Proxy<WeatherDaily.IState>(this.initialState, {
-    get(object, target, receiver) {
-      return Reflect.get(object, target, receiver);
-    },
-    set: (object, target, value) => {
-      const key = target as string;
-      object[key] = value;
-
-      this.configuration.bindings[target as string]?.onChange();
-
-      return Reflect.set(object, target, value);
-    },
   });
 
   protected configuration: Component.IConfiguration = {
     bindings: {
       date: {
-        onChange: () => this.updateElement("date", this.state.date.toLocaleDateString("pl")),
+        onChange: () => this.updateElement("date", (this.state.date as Date).toLocaleDateString("pl")),
       },
       icon: {
         onChange: () => this.updateElement<HTMLElement>("icon", `http://openweathermap.org/img/wn/${this.state.icon}@2x.png`),
@@ -76,16 +62,16 @@ export class DailyComponent extends ComponentWithState<WeatherDaily.IState> {
         },
       },
       moonrise: {
-        onChange: () => this.updateElement("moonrise", this.state.moonrise.toLocaleTimeString("pl")),
+        onChange: () => this.updateElement("moonrise", (this.state.moonrise as Date).toLocaleTimeString("pl")),
       },
       moonset: {
-        onChange: () => this.updateElement("moonset", this.state.moonset.toLocaleTimeString("pl")),
+        onChange: () => this.updateElement("moonset", (this.state.moonset as Date).toLocaleTimeString("pl")),
       },
       sunrise: {
-        onChange: () => this.updateElement("sunrise", this.state.sunrise.toLocaleTimeString("pl")),
+        onChange: () => this.updateElement("sunrise", (this.state.sunrise as Date).toLocaleTimeString("pl")),
       },
       sunset: {
-        onChange: () => this.updateElement("sunset", this.state.sunset.toLocaleTimeString("pl")),
+        onChange: () => this.updateElement("sunset", (this.state.sunset as Date).toLocaleTimeString("pl")),
       },
     },
   };

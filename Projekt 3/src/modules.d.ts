@@ -1,3 +1,8 @@
+declare module "*.html" {
+  const content: string;
+  export default content;
+}
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -6,5 +11,3 @@ declare global {
     }
   }
 }
-
-export {};

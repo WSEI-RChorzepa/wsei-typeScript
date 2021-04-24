@@ -2,12 +2,6 @@ import template from "./template.html";
 import { Alert, Component } from "app/components/types";
 import ComponentWithState from "@components/ComponentWithState";
 
-const initialState: Alert.IState = {
-  message: "",
-  title: "",
-  type: "default",
-};
-
 export class AlertComponent extends ComponentWithState<Alert.IState> {
   constructor(props: Alert.IProps) {
     super(template);
@@ -18,19 +12,11 @@ export class AlertComponent extends ComponentWithState<Alert.IState> {
   }
 
   private timeout: ReturnType<typeof setTimeout> | null = null;
-
-  protected state: Alert.IState = new Proxy<Alert.IState>(initialState, {
-    get(object, target, receiver) {
-      return Reflect.get(object, target, receiver);
-    },
-    set: (object, target, value) => {
-      const key = target as string;
-      object[key] = value;
-
-      this.configuration.bindings[target as string]?.onChange();
-
-      return Reflect.set(object, target, value);
-    },
+  protected state: Alert.IState = this.createState<Alert.IState>({
+    message: "",
+    title: "",
+    type: "default",
+    duration: 5000,
   });
 
   protected configuration: Component.IConfiguration = {
@@ -41,20 +27,28 @@ export class AlertComponent extends ComponentWithState<Alert.IState> {
     },
   };
 
-  get wrapper(): HTMLDivElement {
+  set duration(miliseconds: number) {
+    this.state.duration = miliseconds;
+  }
+
+  private get wrapper(): HTMLDivElement {
     return this.root.querySelector("div.alert") as HTMLDivElement;
   }
 
-  get button(): HTMLButtonElement {
+  private get button(): HTMLButtonElement {
     return this.root.querySelector("button") as HTMLButtonElement;
   }
 
-  get alertCount(): number {
+  private get alertCount(): number {
     const container = document.querySelector("#alert-container");
 
     if (container === null) return 0;
 
     return container.querySelectorAll("app-alert").length;
+  }
+
+  private get progress(): HTMLDivElement {
+    return this.root.querySelector("div.progress") as HTMLDivElement;
   }
 
   private handleSlideout = () => {
@@ -72,9 +66,11 @@ export class AlertComponent extends ComponentWithState<Alert.IState> {
   connectedCallback() {
     this.button.addEventListener("click", this.handleSlideout);
 
+    this.progress.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: this.state.duration, fill: "forwards" });
+
     this.timeout = setTimeout(() => {
       this.handleSlideout();
-    }, 5000);
+    }, this.state.duration);
   }
 
   disconnectedCallback() {

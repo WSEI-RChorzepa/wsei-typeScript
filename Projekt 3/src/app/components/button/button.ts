@@ -7,7 +7,7 @@ export class ClearHistoryButton extends HTMLButtonElement {
 
   private handleClearHistory() {
     localStorage.clear();
-    createAlert.info("", "Dane zostały pomyślnie wyczyszczone");
+    createAlert.info("", "The stored weather data was cleared successfully.");
   }
 
   connectedCallback() {

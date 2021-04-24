@@ -11,8 +11,8 @@ export class HourlyComponent extends ComponentWithState<WeatherHourly.IState> {
     this.setState = newState;
   }
 
-  private initialState: WeatherHourly.IState = {
-    date: new Date(),
+  protected state: WeatherHourly.IState = this.createState<WeatherHourly.IState>({
+    date: null,
     temp: 0,
     pressure: 0,
     humidity: 0,
@@ -23,26 +23,12 @@ export class HourlyComponent extends ComponentWithState<WeatherHourly.IState> {
     icon: "",
     description: "",
     timezone_offset: 0,
-  };
-
-  protected state: WeatherHourly.IState = new Proxy<WeatherHourly.IState>(this.initialState, {
-    get(object, target, receiver) {
-      return Reflect.get(object, target, receiver);
-    },
-    set: (object, target, value) => {
-      const key = target as string;
-      object[key] = value;
-
-      this.configuration.bindings[target as string]?.onChange();
-
-      return Reflect.set(object, target, value);
-    },
   });
 
   protected configuration: Component.IConfiguration = {
     bindings: {
       date: {
-        onChange: () => this.updateElement("date", this.state.date.toLocaleTimeString("pl")),
+        onChange: () => this.updateElement("date", (this.state.date as Date).toLocaleTimeString("pl")),
       },
       temp: {
         onChange: () => this.updateElement("temp"),

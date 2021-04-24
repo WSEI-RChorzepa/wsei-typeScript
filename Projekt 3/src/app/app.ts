@@ -43,7 +43,7 @@ class App {
       this.tilesContainer.appendChild(tileComponent);
       localStorageHelpers.addPlace(value);
     } else {
-      createAlert.danger(`Error ${response.status} ${response.statusText}`, "Wystąpił błąd podczas pobierania danych pogodowych.");
+      createAlert.danger(`Error ${response.status} ${response.statusText}`, "An unexpected error occurred while fetching data");
     }
   };
 
@@ -72,7 +72,7 @@ class App {
 
     this.tilesContainer.innerHTML = "";
     this.tilesContainer.appendChild(df);
-    createAlert.success("", `Dane dla miejscowości: ${places.join(", ")} zostały pomyślnie odtworzone.`);
+    createAlert.info("", `Weather data for places: ${places.join(", ")}  was restored successfully .`);
   };
 
   run = () => {

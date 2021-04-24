@@ -2,18 +2,6 @@ import template from "./template.html";
 import { Autocomplete, Component } from "app/components/types";
 import ComponentWithState from "@components/ComponentWithState";
 
-const initialState: Autocomplete.IState = {
-  placeholder: "",
-  value: "",
-  items: [],
-  autocompleteItems: [],
-  timeout: {
-    delay: 500,
-  },
-  open: false,
-  callback: () => {},
-};
-
 export class AutocompleteComponent extends ComponentWithState<Autocomplete.IState> {
   constructor() {
     super(template);
@@ -29,18 +17,16 @@ export class AutocompleteComponent extends ComponentWithState<Autocomplete.IStat
     }
   }
 
-  protected state: Autocomplete.IState = new Proxy<Autocomplete.IState>(initialState, {
-    get(object, target, receiver) {
-      return Reflect.get(object, target, receiver);
+  protected state: Autocomplete.IState = this.createState<Autocomplete.IState>({
+    placeholder: "",
+    value: "",
+    items: [],
+    autocompleteItems: [],
+    timeout: {
+      delay: 500,
     },
-    set: (object, target, value) => {
-      const key = target as string;
-      object[key] = value;
-
-      this.configuration.bindings[target as string]?.onChange();
-
-      return Reflect.set(object, target, value);
-    },
+    open: false,
+    callback: () => {},
   });
 
   protected configuration: Component.IConfiguration = {

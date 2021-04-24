@@ -18,13 +18,19 @@ export const createAlert = (() => {
 
   const create = (props: Alert.IProps): void => {
     const container = getContainer();
-    container.appendChild(new AlertComponent(props));
+    const alert = new AlertComponent(props);
+
+    if (props.duration) {
+      alert.duration = props.duration as number;
+    }
+
+    container.appendChild(alert);
   };
 
-  const info = (title: string, message: string): void => create({ title, message, type: "info" });
-  const success = (title: string, message: string): void => create({ title, message, type: "success" });
-  const warning = (title: string, message: string): void => create({ title, message, type: "warning" });
-  const danger = (title: string, message: string): void => create({ title, message, type: "danger" });
+  const info = (title: string, message: string, duration?: number): void => create({ title, message, type: "info", duration });
+  const success = (title: string, message: string, duration?: number): void => create({ title, message, type: "success", duration });
+  const warning = (title: string, message: string, duration?: number): void => create({ title, message, type: "warning", duration });
+  const danger = (title: string, message: string, duration?: number): void => create({ title, message, type: "danger", duration });
 
   return {
     info,

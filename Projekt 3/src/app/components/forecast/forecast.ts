@@ -11,27 +11,13 @@ export class ForecastComponent extends ComponentWithState<ForecastState.IState> 
     super(template);
   }
 
-  private initialState: ForecastState.IState = {
+  protected state: ForecastState.IState = this.createState<ForecastState.IState>({
     place: "",
     timezone: "",
     timezone_offset: 0,
     hourly: [],
     daily: [],
     view: "hourly",
-  };
-
-  protected state: ForecastState.IState = new Proxy<ForecastState.IState>(this.initialState, {
-    get(object, target, receiver) {
-      return Reflect.get(object, target, receiver);
-    },
-    set: (object, target, value) => {
-      const key = target as string;
-      object[key] = value;
-
-      this.configuration.bindings[target as string]?.onChange();
-
-      return Reflect.set(object, target, value);
-    },
   });
 
   protected configuration: Component.IConfiguration = {

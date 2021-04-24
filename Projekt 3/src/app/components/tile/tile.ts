@@ -12,9 +12,9 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
     super(template);
   }
 
-  private initialState: Tile.IState = {
+  protected state: Tile.IState = this.createState<Tile.IState>({
     pending: false,
-    updatedAt: new Date(),
+    updatedAt: null,
     place: "",
     icon: "",
     description: "",
@@ -30,7 +30,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       speed: 0,
     },
     refresh: {
-      auto: false,
+      auto: true,
       timeout: null,
       delay: 2 * 60000,
     },
@@ -38,7 +38,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       lat: 0,
       lon: 0,
     },
-  };
+  });
 
   set setState(newState: Weather.RootObject) {
     this.state.place = newState.name;
@@ -84,20 +84,6 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
     this.handleTimeout();
   };
 
-  protected state: Tile.IState = new Proxy<Tile.IState>(this.initialState, {
-    get(object, target, receiver) {
-      return Reflect.get(object, target, receiver);
-    },
-    set: (object, target, value) => {
-      const key = target as string;
-      object[key] = value;
-
-      this.configuration.bindings[target as string]?.onChange();
-
-      return Reflect.set(object, target, value);
-    },
-  });
-
   protected configuration: Component.IConfiguration = {
     bindings: {
       place: {
@@ -120,7 +106,8 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       },
       updatedAt: {
         onChange: () => {
-          const dateString = `${this.state.updatedAt.toLocaleDateString("pl")} ${this.state.updatedAt.toLocaleTimeString("pl")}`;
+          const updatedAt = this.state.updatedAt as Date;
+          const dateString = `${updatedAt.toLocaleDateString("pl")} ${updatedAt.toLocaleTimeString("pl")}`;
           this.updateElement("updatedAt", dateString);
         },
       },

@@ -10,6 +10,7 @@ abstract class ComponentWithState<TState extends State> extends HTMLElement {
   }
 
   protected abstract state: TState;
+
   protected abstract configuration: Component.IConfiguration;
   protected root: ShadowRoot = this.attachShadow({ mode: "closed" });
 
@@ -48,6 +49,18 @@ abstract class ComponentWithState<TState extends State> extends HTMLElement {
       getState: (key) => (state !== undefined ? state : ObjectHelpers.getProperty(this.state, key.split(".")).value),
       callback,
     });
+  };
+
+  protected createState = <T extends Object>(initialState: T): T => {
+    const proxy = new Proxy<T>(initialState, {
+      set: (target, key, value) => {
+        const result = Reflect.set(target, key, value);
+        this.configuration.bindings[key as string]?.onChange();
+        return result;
+      },
+    });
+
+    return proxy;
   };
 }
 
