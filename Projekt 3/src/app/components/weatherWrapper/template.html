@@ -1,0 +1,42 @@
+<template>
+    <style>
+        :host {
+            display: block;
+            position: relative;
+        }
+        .grid {
+            display: grid;
+            grid-template-rows: 1fr;        
+            padding: 1rem 0;
+        }
+        .grid-main {
+            grid-template-areas: "tiles";
+            grid-template-columns: 1fr;
+        }
+        .grid-forecast {
+            grid-template-columns: 1fr 5fr;
+            grid-template-areas: "tiles forecast";
+        }
+        slot[name="tiles"] {
+            grid-area: tiles;
+            padding: 0 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        [slot="forecast"] {
+            grid-area: forecast;
+            padding: 0 2rem;
+        }
+
+        .grid.grid-main slot[name="forecast"] {
+            display: none;
+        }
+    </style>
+    <div class="grid grid-main">
+        <slot name="tiles"></slot>
+        <slot name="forecast"></slot>
+    </div>
+</template>

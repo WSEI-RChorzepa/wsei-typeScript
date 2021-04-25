@@ -2,6 +2,7 @@ import * as Component from "./components";
 
 window.customElements.define("app-alert", Component.AlertComponent);
 window.customElements.define("app-autocomplete", Component.AutocompleteComponent);
+window.customElements.define("weather-wrapper", Component.WeatherWrapper);
 window.customElements.define("weather-tile", Component.TileComponent);
 window.customElements.define("app-spinner", Component.SpinnerComponent);
 window.customElements.define("weather-forecast", Component.ForecastComponent);

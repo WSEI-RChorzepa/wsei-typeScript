@@ -18,7 +18,7 @@ class App {
   }
 
   private get tilesContainer(): HTMLDivElement {
-    return document.querySelector("#tiles") as HTMLDivElement;
+    return document.querySelector("[slot='tiles']") as HTMLDivElement;
   }
 
   private handleCreateAutocomplete = async (): Promise<void> => {

@@ -30,7 +30,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       speed: 0,
     },
     refresh: {
-      auto: true,
+      auto: false,
       timeout: null,
       delay: 2 * 60000,
     },
@@ -124,6 +124,10 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
     return this.root.querySelector("button.close-button") as HTMLButtonElement;
   }
 
+  private get mainWrapper(): HTMLDivElement {
+    return document.querySelector("weather-wrapper") as HTMLDivElement;
+  }
+
   private get forecast(): ForecastComponent {
     return document.querySelector("weather-forecast") as ForecastComponent;
   }
@@ -133,6 +137,13 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
     clearTimeout(this.state.refresh.timeout as ReturnType<typeof setTimeout>);
     this.remove();
   };
+
+  private scrollToTop(): void {
+    if (window.pageYOffset > 0) {
+      const body = document.querySelector("body") as HTMLElement;
+      body.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 
   private handleGetForecast = async () => {
     const { lat, lon } = this.state.coord;
@@ -150,8 +161,10 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
 
     this.forecast.setPlace = this.state.place;
     this.forecast.setState = response.body as Forecast.RootObject;
+    this.mainWrapper.setAttribute("layout", "forecast");
 
     localStorage.setItem("forecast", JSON.stringify(response.body));
+    this.scrollToTop();
   };
 
   connectedCallback() {
