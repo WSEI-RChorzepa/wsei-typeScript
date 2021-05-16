@@ -30,7 +30,7 @@ export class TileComponent extends ComponentWithState<Tile.IState> {
       speed: 0,
     },
     refresh: {
-      auto: false,
+      auto: true,
       timeout: null,
       delay: 2 * 60000,
     },
