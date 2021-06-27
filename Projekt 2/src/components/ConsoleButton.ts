@@ -6,7 +6,7 @@ class ConsoleButton extends HTMLButtonElement {
 
   private get styles(): HTMLStyleElement {
     const styles = document.createElement("style");
-    styles.textContent = `
+    styles.textContent = /*css*/ `
         :host {
             display: block;
             width: 100%;

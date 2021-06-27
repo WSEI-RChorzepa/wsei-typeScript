@@ -13,7 +13,7 @@ export class RecordingMediator implements IMediator {
     return Array.from(components);
   }
 
-  public refreshTrackingComponents = (): void => {
+  refreshTrackingComponents = (): void => {
     this.components = [];
     this.components = this.trackingComponents;
   };
