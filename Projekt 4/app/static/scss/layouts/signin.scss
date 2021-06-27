@@ -1,0 +1,67 @@
+body {
+  background-color: #fff;
+}
+
+.grid {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  margin-top: 1rem;
+  margin-bottom: 10vh;
+}
+
+.group {
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 0.5rem 1rem;
+  }
+
+  span.fa {
+    color: var(--gray);
+    margin-right: 5px;
+    transition: color 300ms ease-in-out;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.image {
+  background-image: url('../../assets/calendar.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+}
+
+.title {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+}

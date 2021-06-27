@@ -1,0 +1,56 @@
+<div class="grid">
+    <div class="form-wrapper">
+        <div class="image"></div>
+
+        <form action="/signup" method="POST">
+            <h6 class="title">Scheduler Planner</h6>
+            <p class="subtitle">Creating new user account.</p>
+
+            <div class="col">
+                <div class="group">
+                    <label for="firstName"><i class="fas fa-user"></i></span> First name</label>
+                    <input placeholder="First name" type="text" name="firstName" autocomplete="off" />
+                </div>
+
+                <div class="group">
+                    <label for="lastName"></span> Last name</label>
+                    <input placeholder="Last name" type="text" name="lastName" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="group">
+                    <label for="email"><span class="fa fa-envelope"></span> Email</label>
+                    <input placeholder="Email address" type="email" name="email" autocomplete="off" />
+                </div>
+
+                <div class="group">
+                    <label for="phone"><span class="fa fa-phone"></span> Phone</label>
+                    <input placeholder="Phone" type="text" name="phone" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="group">
+                    <label for="password"><span class="fa fa-lock"></span> Password</label>
+                    <input placeholder="Password" type="password" name="password" autocomplete="off" />
+                </div>
+
+                <div class="group">
+                    <label for="passwordConfirmation"><span class="fa fa-lock"></span> Confirm password</label>
+                    <input placeholder="Confirm password" type="password" name="passwordConfirmation"
+                        autocomplete="off" />
+                </div>
+            </div>
+
+            {{>validation messages=messages}}
+
+            <div>
+                <button class="button success large" type="submit"> <span class="fa fa-sign-in-alt"></span> Create
+                    account</button>
+                <a href="javascript:history.back()" class="button danger large" type="button"> <span
+                        class="fa fa-times"></span> Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

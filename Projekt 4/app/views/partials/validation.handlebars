@@ -1,0 +1,13 @@
+{{#if messages.error}}
+<div class="error">
+    <div class="title"><i class="fas fa-exclamation-triangle"></i> Validation error</div>
+
+    <div class="message">
+        <ul>
+            {{#each messages.error}}
+            <li><i class="fas fa-circle"></i><span> {{this}}</span></li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+{{/if}}

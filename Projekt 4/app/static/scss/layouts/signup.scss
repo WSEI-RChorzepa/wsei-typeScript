@@ -1,0 +1,42 @@
+body {
+  background-color: #fff;
+}
+
+form {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  margin-top: 1rem;
+  margin-bottom: 10vh;
+}
+
+.grid {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  background-image: url('../../assets/add-user.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+}
+
+.title {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+}

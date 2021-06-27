@@ -1,0 +1,21 @@
+select,
+input {
+  border: 1px solid var(--light-gray);
+  padding: 0.3rem 0.4rem;
+  transition: box-shadow 200ms ease-in-out;
+  color: var(--dark-gray);
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 2px var(--primary-light);
+  }
+
+  &::placeholder {
+    color: var(--gray);
+    font-size: 12px;
+  }
+}
+
+option[disabled] {
+  color: var(--light-gray);
+}

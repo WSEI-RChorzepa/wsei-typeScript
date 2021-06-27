@@ -1,0 +1,35 @@
+.error {
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  border: 1px solid var(--danger-light);
+
+  > .title {
+    color: var(--danger);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  > .message {
+    font-weight: 400;
+    color: var(--danger);
+    font-size: 12px;
+    ul {
+      li {
+        list-style: none;
+        margin-bottom: 2px;
+        display: flex;
+        align-items: center;
+
+        i {
+          font-size: 5px;
+          margin-right: 5px;
+        }
+
+        span::first-letter {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

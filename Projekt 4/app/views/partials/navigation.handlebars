@@ -1,0 +1,27 @@
+<nav>
+    <ul>
+        <li>
+            <a href="/home" {{#if active.home }} class="active" {{/if}}> <span class="fa fa-home"></span> Home</a>
+        </li>
+        <li>
+            <a href="/about" {{#if active.about }} class="active" {{/if}}>About</a>
+        </li>
+        <li>
+            <a href="/contact" {{#if active.contact }} class="active" {{/if}}>Contact</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="user-information">
+    <ul>
+        <li>
+            <i class="fas fa-user-cog"></i> {{user.contact.email}}
+        </li>
+        <li data-role="{{user.role}}">
+            <i class="fas fa-tag"></i> {{toRoleDescription user.role}}
+        </li>
+        <li>
+            <a href="/signout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </li>
+    </ul>
+</div>

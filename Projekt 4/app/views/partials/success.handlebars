@@ -1,0 +1,13 @@
+{{#if messages.success}}
+<div id="message-success" class="success">
+    <div class="title"><i class="fas fa-thumbs-up"></i> Success</div>
+
+    <div class="message">
+        <ul>
+            {{#each messages.success}}
+            <li><i class="fas fa-circle"></i><span> {{this}}</span></li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+{{/if}}
